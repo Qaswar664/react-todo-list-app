@@ -1,8 +1,9 @@
 import Table from 'react-bootstrap/Table';
 import axios from 'axios'
-import { useEffect, useState } from 'react';
+import { useState} from "react";
+import { useEffect} from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-function Axios() {
+function Todo() {
 
     const [id, setId] = useState(null)
     const [show, setShow] = useState(false);
@@ -14,6 +15,9 @@ function Axios() {
     const handleShow = () => setShow(true);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
+    const [search, setSearch] = useState("");
+
+    
     useEffect(() => {
         getData()
     }, [])
@@ -27,14 +31,14 @@ function Axios() {
     const allData = (e) => {
         const value = e.target.value
         const name = e.target.name
-        // name = value;
+        
         console.log(value);
         setData1({ ...data1, [name]: value })
     }
     const deleteData = async (id) => {
         // await axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
         const datas = data.filter((item) => item.id !== id)
-           setData(datas)
+        setData(datas)
     }
 
 
@@ -44,6 +48,7 @@ function Axios() {
         // const result = await axios.post('https://jsonplaceholder.typicode.com/todos/ ', {datas})
         //  setData([...data,result.data.datas])
         const check = data.unshift(datas)
+        
         console.log('data added', check);
         handleClose()
     }
@@ -75,7 +80,18 @@ function Axios() {
     }
 
 
+
     return (
+        <div>
+      <div>
+      <Form.Group className="m-2 w-25"    >
+      <Form.Control placeholder="search..." value={search} name="search" onChange={(e)=>{setSearch(e.target.value)}}  />
+      </Form.Group>
+      {search && data.length === 0 && (
+        <div style={{color:"dark"}}>Sorry, this name does not exist</div>
+      )}
+      </div>
+        
         <Table striped bordered hover variant="light">
             <thead>
                 <tr >
@@ -85,13 +101,15 @@ function Axios() {
                     <th><Button variant='success' onClick={handleShow}>Add user</Button></th>
                 </tr>
             </thead>
+           
             {
-                data.slice(0, 10).map((e, id) =>
+                
+                data.filter((items) => items.title.toLowerCase().includes(search.toLowerCase())).slice(0, 10).map((e, id) =>
                     <tbody >
-                        <tr key={id} >
+                        <tr key={e.key} >
                             <td>{id + 1}</td>
-                            <td>{e.title}</td>
-                            <td>{e.body}</td>
+                            <td>{e.title.substring(0,20)}</td>  
+                            <td>{e.body.substring(0,20)}</td>
                             <td>
                                 <Button className='btn btn-danger' onClick={() => deleteData(e.id)}>Delete</Button>
                                 <Button variant="info" onClick={() => {
@@ -166,11 +184,13 @@ function Axios() {
                         Close
                     </Button>
                     <Button variant="primary" onClick={saveData} >
-                        Are You want to Update
+                        Update
                     </Button>
                 </Modal.Footer>
             </Modal>
         </Table>
+ 
+        </div>
     );
 }
-export default Axios;
+export default Todo;

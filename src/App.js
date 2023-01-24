@@ -1,11 +1,12 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Axios from './component/Todo';
-import Header from './component/Header';
+// import { BrowserRouter, Route, Routes } from 'react-router-dom';
+// import Header from './component/Header';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Todo from './component/Todo';
+// import Pagination from './component/Pagination';
 
 function App() {
   return (
@@ -21,8 +22,11 @@ function App() {
         </Container>
       </Navbar>
       <div>
-      <Axios/>
+      <Todo/>
       </div>
+     {/* <div>
+      <Pagination/>
+     </div> */}
        
     </div>
   );

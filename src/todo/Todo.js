@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
-function Axios() {
+function Todo() {
 const [id,setId] = useState(null)
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -140,4 +140,4 @@ console.log(result);
 </Table>
   );
 }
-export default Axios;
+export default Todo;
